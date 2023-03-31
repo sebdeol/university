@@ -244,7 +244,7 @@ def main():
                 # Print the exit message
                 print("Exiting the application.")
 
-                # break the infinite loop to exit the application
+                # Break the infinite loop to exit the application
                 break
 
             # Handle the case when the user selects an invalid choice
