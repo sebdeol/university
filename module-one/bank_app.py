@@ -10,38 +10,38 @@ transactions_objects = []
 # A list with 5 pre-populated objects
 # Uncomment the lines below if you don't want to create the manually create the objects when you start the app.
 
-transactions_objects = [
-    {
-        "date": datetime.strptime("2023-03-01", "%Y-%m-%d"),
-        "description": "Shopping",
-        "amount": 50.00,
-        "type": "debit",
-    },
-    {
-        "date": datetime.strptime("2023-03-02", "%Y-%m-%d"),
-        "description": "Salary",
-        "amount": 2000.00,
-        "type": "credit",
-    },
-    {
-        "date": datetime.strptime("2023-03-03", "%Y-%m-%d"),
-        "description": "Mobile Bill",
-        "amount": 10.00,
-        "type": "debit",
-    },
-    {
-        "date": datetime.strptime("2023-03-04", "%Y-%m-%d"),
-        "description": "ASOS",
-        "amount": 220.11,
-        "type": "debit",
-    },
-    {
-        "date": datetime.strptime("2023-03-05", "%Y-%m-%d"),
-        "description": "Restaurant",
-        "amount": 76.99,
-        "type": "debit",
-    },
-]
+# transactions_objects = [
+#     {
+#         "date": datetime.strptime("2023-03-01", "%Y-%m-%d"),
+#         "description": "Shopping",
+#         "amount": 50.00,
+#         "type": "debit",
+#     },
+#     {
+#         "date": datetime.strptime("2023-03-02", "%Y-%m-%d"),
+#         "description": "Salary",
+#         "amount": 2000.00,
+#         "type": "credit",
+#     },
+#     {
+#         "date": datetime.strptime("2023-03-03", "%Y-%m-%d"),
+#         "description": "Mobile Bill",
+#         "amount": 10.00,
+#         "type": "debit",
+#     },
+#     {
+#         "date": datetime.strptime("2023-03-04", "%Y-%m-%d"),
+#         "description": "ASOS",
+#         "amount": 220.11,
+#         "type": "debit",
+#     },
+#     {
+#         "date": datetime.strptime("2023-03-05", "%Y-%m-%d"),
+#         "description": "Restaurant",
+#         "amount": 76.99,
+#         "type": "debit",
+#     },
+# ]
 
 # A constant string for the error message when there are no transactions
 NO_TRANSACTIONS_ERROR_MESSAGE = (
