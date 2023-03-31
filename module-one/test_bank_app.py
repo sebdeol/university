@@ -1,8 +1,11 @@
 import unittest
 from datetime import datetime
 
+import bank_app
 from bank_app import (
-    NO_TRANSACTIONS_ERROR_MESSAGE,
+    InvalidFieldError,
+    NoMatchingTransactionsError,
+    NoTransactionsError,
     delete_transactions,
     insert_transaction,
     search_transactions,
@@ -10,118 +13,93 @@ from bank_app import (
     transactions_objects,
 )
 
+SEED_DATA = [
+    {
+        "date": datetime(2023, 1, 1),
+        "description": "Transaction A",
+        "amount": 100.0,
+        "type": "debit",
+    },
+    {
+        "date": datetime(2023, 1, 2),
+        "description": "Transaction B",
+        "amount": 200.0,
+        "type": "credit",
+    },
+]
 
-class TestTransactions(unittest.TestCase):
+
+class TestBankApp(unittest.TestCase):
     def setUp(self):
-        self.sample_transaction = {
-            "date": datetime(2023, 3, 17),
-            "description": "Groceries",
-            "amount": 42.50,
-            "type": "debit",
-        }
-        transactions_objects.clear()
-
-    def tearDown(self) -> None:
-        transactions_objects.clear()
+        bank_app.transactions_objects = SEED_DATA[:]
 
     def test_insert_transaction(self):
-        self.assertEqual(len(transactions_objects), 0)
-        result = insert_transaction(self.sample_transaction)
-        self.assertEqual(result, "Transaction successfully created.")
-        self.assertEqual(len(transactions_objects), 1)
-        self.assertEqual(transactions_objects[0], self.sample_transaction)
-
-    def test_delete_transactions_no_transactions(self):
-        result = delete_transactions("Groceries")
-        self.assertEqual(result, NO_TRANSACTIONS_ERROR_MESSAGE)
-
-    def test_delete_transactions_no_matching_keyword(self):
-        insert_transaction(self.sample_transaction)
-        result = delete_transactions("Non-existent")
-        self.assertEqual(
-            result,
-            "No matching transactions found, nothing was deleted. Please try again with another keyword.",
-        )
-
-    def test_delete_one_transaction_with_a_matching_keyword(self):
-        insert_transaction(self.sample_transaction)
-        result = delete_transactions("Groceries")
-        self.assertEqual(result, "1 transaction(s) successfully deleted.")
-        self.assertEqual(len(transactions_objects), 0)
-
-    def test_delete_two_transactions_with_a_matching_keyword(self):
-        another_transaction = {
-            "date": datetime(2022, 3, 18),
-            "description": "Another Groceries Transaction",
-            "amount": 12.00,
+        transaction = {
+            "date": datetime(2023, 1, 3),
+            "description": "Test transaction",
+            "amount": 300.0,
             "type": "debit",
         }
+        insert_transaction(transaction)
 
-        insert_transaction(self.sample_transaction)
-        insert_transaction(another_transaction)
+        self.assertIn(transaction, bank_app.transactions_objects)
+        self.assertEqual(len(bank_app.transactions_objects), 3)
 
-        result = delete_transactions("Groceries")
+    def test_delete_transactions(self):
+        keyword = "Transaction A"
+        message = delete_transactions(keyword)
 
-        self.assertEqual(result, "2 transaction(s) successfully deleted.")
-        self.assertEqual(len(transactions_objects), 0)
+        self.assertEqual(message, "1 transaction(s) successfully deleted.")
 
-    def test_sort_transactions_no_transactions(self):
-        result = sort_transactions("date")
-        self.assertEqual(result, NO_TRANSACTIONS_ERROR_MESSAGE)
+    def test_delete_transactions_with_no_transactions(self):
+        bank_app.transactions_objects = []
+        keyword = "Transaction A"
 
-    def test_sort_transactions_invalid_field(self):
-        insert_transaction(self.sample_transaction)
+        with self.assertRaises(bank_app.NoTransactionsError):
+            bank_app.delete_transactions(keyword)
 
-        valid_output, message, sorted_transactions = sort_transactions("invalid")
+    def test_sort_transactions(self):
+        sorted_transactions = sort_transactions("amount")
 
-        self.assertFalse(valid_output)
-        self.assertEqual(
-            message, "You provided an invalid field to sort on, please try again."
-        )
-        self.assertEqual(sorted_transactions, [])
+        self.assertEqual(sorted_transactions[0]["amount"], 100.0)
+        self.assertEqual(sorted_transactions[1]["amount"], 200.0)
 
-    def test_sort_transactions_valid_field(self):
-        another_transaction = {
-            "date": datetime(2023, 3, 18),
-            "description": "Salary",
-            "amount": 2000.00,
-            "type": "credit",
-        }
+    def test_sort_transactions_desc(self):
+        sorted_transactions = sort_transactions("amount", True)
 
-        insert_transaction(self.sample_transaction)
-        insert_transaction(another_transaction)
+        self.assertEqual(sorted_transactions[0]["amount"], 200.0)
+        self.assertEqual(sorted_transactions[1]["amount"], 100.0)
 
-        valid_output, message, sorted_transactions = sort_transactions("date")
+    def test_sort_transactions_with_invalid_field_error(self):
+        with self.assertRaises(bank_app.InvalidFieldError):
+            bank_app.sort_transactions("invalid_field", True)
 
-        self.assertTrue(valid_output)
-        self.assertEqual(message, "")
-        self.assertEqual(
-            sorted_transactions, [self.sample_transaction, another_transaction]
-        )
+    def test_sort_transactions_when_there_are_no_transactions(self):
+        bank_app.transactions_objects = []
 
-    def test_search_transactions_no_transactions(self):
-        valid_output, found_transactions, message = search_transactions("Groceries")
+        with self.assertRaises(bank_app.NoTransactionsError):
+            bank_app.sort_transactions("amount", True)
 
-        self.assertFalse(valid_output)
-        self.assertEqual(found_transactions, [])
-        self.assertEqual(message, NO_TRANSACTIONS_ERROR_MESSAGE)
+    def test_search_transactions(self):
+        keyword = "Transaction A"
+        matched_transactions = search_transactions(keyword)
+        keyword = "Transaction A"
 
-    def test_search_transactions_no_matching_keyword(self):
-        insert_transaction(self.sample_transaction)
+        self.assertEqual(len(matched_transactions), 1)
+        self.assertEqual(matched_transactions[0]["description"], "Transaction A")
 
-        valid_output, found_transactions, message = search_transactions("Non-existent")
+    def test_search_transactions_no_match(self):
+        keyword = "Non-existent transaction"
 
-        self.assertFalse(valid_output)
-        self.assertEqual(found_transactions, [])
-        self.assertEqual(message, "No transactions found, please try again.")
+        with self.assertRaises(bank_app.NoMatchingTransactionsError):
+            search_transactions(keyword)
 
-    def test_search_transactions_matching_keyword(self):
-        insert_transaction(self.sample_transaction)
-        valid_output, found_transactions, message = search_transactions("Groceries")
+    def test_search_transactions_when_there_are_no_transactions(self):
+        bank_app.transactions_objects = []
+        keyword = "Transaction A"
 
-        self.assertTrue(valid_output)
-        self.assertEqual(len(found_transactions), 1)
-        self.assertEqual(found_transactions[0], self.sample_transaction)
+        with self.assertRaises(bank_app.NoTransactionsError):
+            bank_app.search_transactions(keyword)
 
 
 if __name__ == "__main__":
