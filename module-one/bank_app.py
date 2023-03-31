@@ -4,19 +4,16 @@ import sys
 # Import the datetime module to work with dates
 from datetime import datetime
 
-# Import Final and Union from the typing module for type annotations
-from typing import Final, Union
-
 # A list to store all the transaction objects
 transactions_objects = []
 
 # A constant string for the error message when there are no transactions
-NO_TRANSACTIONS_ERROR_MESSAGE: Final[
-    str
-] = "There is no current transactions. Please add one before performing this action."
+NO_TRANSACTIONS_ERROR_MESSAGE = (
+    "There is no current transactions. Please add one before performing this action."
+)
 
 # Function to insert a transaction into the transactions_objects list
-def insert_transaction(transaction: dict):
+def insert_transaction(transaction):
     # Append the dict object to the transaction list
     transactions_objects.append(transaction)
 
@@ -25,7 +22,7 @@ def insert_transaction(transaction: dict):
 
 
 # Function to delete transactions based on a keyword match in their description
-def delete_transactions(keyword: str):
+def delete_transactions(keyword):
     # Return the no transactions error message if the transactions list is empty
     if not transactions_objects:
         return NO_TRANSACTIONS_ERROR_MESSAGE
@@ -51,7 +48,7 @@ def delete_transactions(keyword: str):
 
 
 # Function to sort transactions based on the given field and order
-def sort_transactions(field: str, order: bool = False):
+def sort_transactions(field, order=False):
     # Return the no transactions error message if the transactions list is empty
     if not transactions_objects:
         return NO_TRANSACTIONS_ERROR_MESSAGE
@@ -65,7 +62,7 @@ def sort_transactions(field: str, order: bool = False):
 
 
 # Function to search transactions based on a keyword match in their description
-def search_transactions(keyword: str):
+def search_transactions(keyword):
     # Return the no transactions error message if the transactions list is empty
     if not transactions_objects:
         return False, [], NO_TRANSACTIONS_ERROR_MESSAGE
@@ -121,7 +118,7 @@ def display_transactions(transactions):
 
 
 # Function to prompt the user for the transaction details and return a dictionary
-def prompt_transaction() -> dict[str, Union[datetime, str, float]]:
+def prompt_transaction():
     # Prompt the user to enter the transaction date and convert it to a datetime object
     date_str = input("Enter the date (YYYY-MM-DD): ")
     date = datetime.strptime(date_str, "%Y-%m-%d")
