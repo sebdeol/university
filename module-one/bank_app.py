@@ -8,7 +8,7 @@ from datetime import datetime
 transactions_objects = []
 
 # A list with 5 pre-populated objects
-# Uncomment the lines below if you don't want to create the manually create the objects when you start the app.
+# Uncomment the lines below if you don't want to manually create the objects when you start the app.
 
 # transactions_objects = [
 #     {
@@ -65,16 +65,13 @@ class NoMatchingTransactionsError(Exception):
 def insert_transaction(transaction):
     # Append the dict object to the transaction list
     transactions_objects.append(transaction)
-
-    # Return a string
     return "Transaction successfully created."
 
 
 # Function to delete transactions based on a keyword match in their description
 def delete_transactions(keyword):
-    # Check if there are transactions
+    # Check if there are transactions otherwise raise NoTransactionsError
     if not transactions_objects:
-        # Raise NoTransactionsError if there are no transactions
         raise NoTransactionsError(NO_TRANSACTIONS_ERROR_MESSAGE)
 
     # Initialise an empty list to store the number of deleted transactions
@@ -89,9 +86,8 @@ def delete_transactions(keyword):
             # Increment the deleted objects count
             deleted_count += 1
 
-    # Check if any transactions were deleted
+    # Check if any transactions were deleted otherwise raise NoMatchingTransactionsError
     if deleted_count == 0:
-        # Raise NoMatchingTransactionsError if no transactions were deleted
         raise NoMatchingTransactionsError(
             "No matching transactions found, nothing was deleted. Please try again with another keyword."
         )
@@ -102,14 +98,12 @@ def delete_transactions(keyword):
 
 # Function to sort transactions based on the given field and order
 def sort_transactions(field, ascending=False):
-    # Check if there are transactions
+    # Check if there are transactions otherwise raise NoTransactionsError
     if not transactions_objects:
-        # Raise NoTransactionsError if there are no transactions
         raise NoTransactionsError(NO_TRANSACTIONS_ERROR_MESSAGE)
 
-    # Check if the input field to sort on is valid
+    # Check if the input field to sort on is valid otherwise raise InvalidFieldError
     if field not in ("date", "description", "amount"):
-        # Raise InvalidFieldError if the sorting field is invalid
         raise InvalidFieldError(
             "You provided an invalid field to sort on, please try again."
         )
@@ -135,9 +129,8 @@ def search_transactions(keyword):
             # If there's a match, add the transaction to the matched_transactions list
             matched_transactions.append(transaction)
 
-    # Check if there are any matched transactions
+    # Check if there are any matched transactions otherwise raise NoMatchingTransactionsError
     if not matched_transactions:
-        # Raise NoMatchingTransactionsError if no transactions were found
         raise NoMatchingTransactionsError("No transactions found, please try again.")
 
     return matched_transactions
@@ -145,9 +138,8 @@ def search_transactions(keyword):
 
 # Function to display the transactions in a formatted table
 def display_transactions(transactions):
-    # Check if there are transactions
+    # Check if there are transactions otherwise raise NoTransactionsError
     if not transactions:
-        # Raise NoTransactionsError if there are no transactions
         raise NoTransactionsError(NO_TRANSACTIONS_ERROR_MESSAGE)
 
     # Print the table header with specifically formatted column names
@@ -185,9 +177,8 @@ def prompt_transaction():
     # Prompt the user to enter the transaction type (debit or credit)
     transaction_type = input("Enter the transaction type (debit/credit): ")
 
-    # Check if the transaction type is valid
+    # Check if the transaction type is valid otherwise raise ValueError
     if transaction_type.lower() not in ("debit", "credit"):
-        # Raise ValueError if the transaction type is invalid
         raise ValueError("Invalid transaction type entered. Please try again.")
 
     # Return the transaction details as a dictionary
@@ -206,6 +197,7 @@ def main():
             print("\nBank Account Book Application")
             print("1. Add a transaction")
 
+            # Only display an enhanced menu if there is at least one transaction present.
             if transactions_objects:
                 print("2. Delete transactions")
                 print("3. Sort transactions")
@@ -218,7 +210,7 @@ def main():
             # Handle ValueError if the input is not an integer
             try:
                 choice = int(input("Enter your choice: \n"))
-                # If the transactions list is empty and the user chose an invalid integer, raise ValueError
+                # If the transactions list is empty and the user chose an invalid integer raise ValueError
                 if not transactions_objects and choice not in (1, 6):
                     choice = 0
                     raise ValueError
@@ -231,7 +223,6 @@ def main():
                 if choice == 1:
                     # Prompt the user to enter transaction details
                     transaction = prompt_transaction()
-                    # Add the transaction to the list
                     message = insert_transaction(transaction)
                     print(message)
                 # Check if the user's choice is 2 (Delete transactions)
@@ -240,9 +231,7 @@ def main():
                     keyword = input(
                         "Enter a keyword to delete the matching transactions: "
                     )
-                    # Delete the matching transactions given the keyword
                     message = delete_transactions(keyword)
-                    # Display the result message
                     print(message)
                 # Check if the user's choice is 3 (Sort transactions)
                 elif choice == 3:
@@ -253,26 +242,20 @@ def main():
                     # Prompt the user to enter the sorting order
                     order = input("Enter the order asc/desc (current default is asc): ")
                     reverse_order = True if order == "desc" else False
-                    # Run the sort_transactions() function to sort the transactions according to the input params
                     sorted_transactions = sort_transactions(field, reverse_order)
-                    # Display the sorted transactions
                     display_transactions(sorted_transactions)
                 # Check if the user's choice is 4 (Search transactions)
                 elif choice == 4:
                     # Prompt the user to enter a keyword
                     keyword = input("Enter a keyword to search transactions: ")
-                    # Search for the matching transactions
                     matched_transactions = search_transactions(keyword)
                     print("Matched Transactions: \n")
-                    # Display the matched transactions
                     display_transactions(matched_transactions)
                 # Check if the user's choice is 5 (Display all transactions)
                 elif choice == 5:
-                    # Display all the transactions in the transactions_objects list
                     display_transactions(transactions_objects)
                 # Check if the user's choice is 6 (Exit)
                 elif choice == 6:
-                    # Print the exit message
                     print("Exiting the application. Goodbye!")
                     # Break the infinite loop to exit the application
                     break
@@ -280,19 +263,15 @@ def main():
                     raise ValueError
             # Handle ValueError if the user entered an invalid value
             except ValueError:
-                # Print the error message
                 print("\nIt appears you entered an invalid value. Please try again.")
             # Handle InvalidFieldError if the user entered an invalid field
             except InvalidFieldError as invalid_field_error:
-                # Print the error message
                 print(invalid_field_error)
             # Handle NoMatchingTransactionsError if there are no maching transactions
             except NoMatchingTransactionsError as no_matching_transaction_error:
-                # Print the error message
                 print(no_matching_transaction_error)
             # Handle NoTransactionsError if there are no transactions
             except NoTransactionsError as no_transactions_error:
-                # Print the error message
                 print(no_transactions_error)
 
     # Handle KeyboardInterrupt to exit the application more gracefully
