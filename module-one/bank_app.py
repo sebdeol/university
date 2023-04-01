@@ -10,38 +10,38 @@ transactions_objects = []
 # A list with 5 pre-populated objects
 # Uncomment the lines below if you don't want to manually create the objects when you start the app.
 
-# transactions_objects = [
-#     {
-#         "date": datetime.strptime("2023-03-01", "%Y-%m-%d"),
-#         "description": "Shopping",
-#         "amount": 50.00,
-#         "type": "debit",
-#     },
-#     {
-#         "date": datetime.strptime("2023-03-02", "%Y-%m-%d"),
-#         "description": "Salary",
-#         "amount": 2000.00,
-#         "type": "credit",
-#     },
-#     {
-#         "date": datetime.strptime("2023-03-03", "%Y-%m-%d"),
-#         "description": "Mobile Bill",
-#         "amount": 10.00,
-#         "type": "debit",
-#     },
-#     {
-#         "date": datetime.strptime("2023-03-04", "%Y-%m-%d"),
-#         "description": "ASOS",
-#         "amount": 220.11,
-#         "type": "debit",
-#     },
-#     {
-#         "date": datetime.strptime("2023-03-05", "%Y-%m-%d"),
-#         "description": "Restaurant",
-#         "amount": 76.99,
-#         "type": "debit",
-#     },
-# ]
+transactions_objects = [
+    {
+        "date": datetime.strptime("2023-03-01", "%Y-%m-%d"),
+        "description": "Shopping",
+        "amount": 50.00,
+        "type": "debit",
+    },
+    {
+        "date": datetime.strptime("2023-03-02", "%Y-%m-%d"),
+        "description": "Another Shopping",
+        "amount": 20.00,
+        "type": "debit",
+    },
+    {
+        "date": datetime.strptime("2023-03-03", "%Y-%m-%d"),
+        "description": "Salary",
+        "amount": 2000.00,
+        "type": "credit",
+    },
+    {
+        "date": datetime.strptime("2023-03-04", "%Y-%m-%d"),
+        "description": "ASOS",
+        "amount": 220.11,
+        "type": "debit",
+    },
+    {
+        "date": datetime.strptime("2023-03-05", "%Y-%m-%d"),
+        "description": "Restaurant",
+        "amount": 76.99,
+        "type": "debit",
+    },
+]
 
 # A constant string for the error message when there are no transactions
 NO_TRANSACTIONS_ERROR_MESSAGE = (
@@ -224,7 +224,8 @@ def main():
                     # Prompt the user to enter transaction details
                     transaction = prompt_transaction()
                     message = insert_transaction(transaction)
-                    print(message)
+                    print(f"{message}\n")
+                    display_transactions(transactions_objects)
                 # Check if the user's choice is 2 (Delete transactions)
                 elif choice == 2:
                     # Prompt the user to enter a keyword
@@ -232,7 +233,8 @@ def main():
                         "Enter a keyword to delete the matching transactions: "
                     )
                     message = delete_transactions(keyword)
-                    print(message)
+                    print(f"{message}\n")
+                    display_transactions(transactions_objects)
                 # Check if the user's choice is 3 (Sort transactions)
                 elif choice == 3:
                     # Prompt the user to enter the sorting field
