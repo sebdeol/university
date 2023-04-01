@@ -65,7 +65,7 @@ cd university/module-one
 python3 bank_app.py
 ```
 
-4) If you succesfully followed the instruction, the application will display a menu with the available operations in your terminal (please note that the application will display a reduced menu until at least a transaction is entered to improve the UX):
+4) If you successfully followed the instruction, the application will display a menu with the available operations in your terminal (please note that the application will display a reduced menu until at least a transaction is entered to improve the UX):
 
 
 ```bash
@@ -77,7 +77,7 @@ Bank Account Book Application
 Enter your choice:
 ```
 
-4) Follow the on-screen prompts to perform the desired actions.
+5) Follow the on-screen prompts to perform the desired actions.
 
 
 ### Instructions for Use
@@ -94,7 +94,7 @@ Here's a brief overview of the available options:
 - Sort transactions: Choose a field (date, description, amount) and order (ascending or descending) to sort the list of transactions.
 The application will display the sorted list of transactions in a table
 
-- Display all transactions: The application will display all the current transactions in a table
+- Display all transactions: The application will display all the current transactions in a table.
 
 - Exit: To exit the application.
 
