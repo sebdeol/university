@@ -80,6 +80,13 @@ Enter your choice:
 5) Follow the on-screen prompts to perform the desired actions.
 
 
+If you want to test the application, you can also run the python tests:
+
+```bash
+python3 -m unittest test_bank_app.py
+```
+
+
 ### Instructions for Use
 
 The Bank Account Book Application provides a text-based interface with a menu of available operations.
