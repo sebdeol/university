@@ -4,8 +4,10 @@
 
 ## Introduction
 
-The Bank Account Book Application is a highly effective and user-friendly tool written in python designed to manage all your bank account transactions in one place.
-With this application, you can track all your transactions with ease. Featuring an intuitive interface, the Bank Account Book Application is the ideal option for anyone looking to take control of their finances and manage their money more effectively. The application also has advanced features that allows you to perform any day-to-day action such as adding, deleting, searching, and sorting transactions.
+This is the GitHub repository hosting the code for the Bank Account Book application.
+
+The Bank Account Book is a powerful and user-friendly Python application that lets users keep track of their day-to-day transactions.
+The application is designed in a simple yet effective way to add, delete, search, and sort all banking transactions in one single place via the terminal.
 
 
 ## Objective
