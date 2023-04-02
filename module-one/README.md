@@ -21,9 +21,9 @@ Users can also quickly search and sort transactions based on specific criterias.
 The application is implemented in Python and uses basic data structures like lists and dictionaries to store transaction records.
 The key data structures and methods used in the application are:
 
-- Lists: Lists are used to store the transaction records (Python Software Foundation, n.d.a).
-- Dictionaries: Each transaction record is stored as a dictionary with keys such as 'date', 'description', 'amount', and 'type' (Python Software Foundation, n.d.b).
-- Datetime objects: The transaction dates are stored as datetime objects for easy manipulation and formatting (Python Software Foundation, n.d.c).
+- Lists: Lists are used to store the transaction records (Python Software Foundation, N.D.A).
+- Dictionaries: Each transaction record is stored as a dictionary with keys such as 'date', 'description', 'amount', and 'type' (Python Software Foundation, N.D.B).
+- Datetime objects: The transaction dates are stored as datetime objects for easy manipulation and formatting (Python Software Foundation, N.D.C).
 
 The application is divided into several functions, each responsible for a specific operation, such as adding, deleting, searching, and sorting transactions.
 This approach ensures that the code is easy to maintain and update in future iterations.
@@ -34,10 +34,10 @@ This approach ensures that the code is easy to maintain and update in future ite
 
 Each transaction object is represented as a dictionary with the following fields:
 
-- date (datetime (Python Software Foundation, n.d.c)): The transaction's date, stored as a datetime object.
-- description (string (Python Software Foundation, n.d.d)): A brief description of the transaction.
-- amount (float (Python Software Foundation, n.d.e)): The transaction amount, stored as a floating-point number.
-- type (string (Python Software Foundation, n.d.d)): The transaction type, which can be either 'debit' or 'credit'.
+- date (datetime (Python Software Foundation, N.D.C)): The transaction's date, stored as a datetime object.
+- description (string (Python Software Foundation, N.D.D)): A brief description of the transaction.
+- amount (float (Python Software Foundation, N.D.E)): The transaction amount, stored as a floating-point number.
+- type (string (Python Software Foundation, N.D.D)): The transaction type, which can be either 'debit' or 'credit'.
 
 ### Transactions List
 
@@ -111,12 +111,14 @@ The application has been designed to minimise user errors. For example, if you e
 
 ## References
 
-Python Software Foundation, n.d.a. Lists. [online] Python.org. Available at: https://docs.python.org/3/library/stdtypes.html#lists [Accessed 1 April 2023].
+Python Software Foundation. (N.D.A.). Lists. [online] Python.org. Available at: https://docs.python.org/3/library/stdtypes.html#lists [Accessed 1 April 2023].
 
-Python Software Foundation, n.d.b. Dictionaries. [online] Python.org. Available at: https://docs.python.org/3/tutorial/datastructures.html#dictionaries [Accessed 1 April 2023].
+Python Software Foundation. (N.D.B.). Dictionaries. [online] Python.org. Available at: https://docs.python.org/3/tutorial/datastructures.html#dictionaries [Accessed 1 April 2023].
 
-Python Software Foundation, n.d.c. datetime. [online] Python.org. Available at: https://docs.python.org/3/library/datetime.html [Accessed 1 April 2023].
+Python Software Foundation. (N.D.C.). datetime. [online] Python.org. Available at: https://docs.python.org/3/library/datetime.html [Accessed 1 April 2023].
 
-Python Software Foundation, n.d.d. string. [online] Python.org. Available at: https://docs.python.org/3/library/stdtypes.html#string-methods [Accessed 1 April 2023].
+Python Software Foundation. (N.D.D.). string. [online] Python.org. Available at: https://docs.python.org/3/library/stdtypes.html#string-methods [Accessed 1 April 2023].
 
-Python Software Foundation, n.d.e. float(). [online] Python.org. Available at: https://docs.python.org/3/library/functions.html#float [Accessed 1 April 2023].
+Python Software Foundation. (N.D.E.). float(). [online] Python.org. Available at: https://docs.python.org/3/library/functions.html#float [Accessed 1 April 2023].
+
+Markdown Guide. (N.D.). [online] Markdown Guide. Available at: https://www.markdownguide.org [Accessed 1 Apr. 2023].
