@@ -1,6 +1,7 @@
 # README
 
 ## Description
+
 This is my implementation for Assignment 1: Part 3.
 For this assignement, we have a MySQL database with two different tables, EMP and DEPT. EMP stores employee data and DEPT stores departments information.
 
@@ -36,6 +37,7 @@ I have used the `AVG` function to calculate the average salary for each departme
 
 
 ## Alternative Approaches
+
 Query 1 - Instead of using the `BETWEEN` operator, the first query could also use >= and <= operators to filter the salary range.
 
 Query 2 - The second query could have been implemented using the `COUNT()` function with a `GROUP BY` clause to group the results by `DEPTNO` and then filter the results by `DEPTNO` = 30.
